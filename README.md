@@ -48,13 +48,15 @@ compliance-fact family (ADR-2607141700,
 A **read-only reference/archive** catalog — not an Advisor⊣Governor
 actuation actor. It proposes or executes nothing on API's behalf.
 
-Coverage is reported honestly (see `association.facts/coverage`): an
-association not in `catalog` has **no spec-basis**, full stop — never
-fabricate one.
+Coverage is reported honestly through bounded `entry-count`,
+`association-covered?`, and `by-topic-*` operations. An association not in
+the sovereign catalog has **no spec-basis**, full stop — never fabricate one.
 
 ## Data
 
-- `src/association/facts.cljc` — the catalog, source of truth.
+- `src/association_facts.kotoba` — the sole production catalog and source of
+  truth; every field and the ordered one-or-many topic set is exposed through
+  bounded count/index access.
 - `schema/association-rule.edn` — DataScript schema.
 - `data/datascript-tx.edn` — derived DataScript tx-data (query this
   alongside other `cloud-itonami`/`etzhayyim` compliance-fact sources via
@@ -73,3 +75,13 @@ AGPL-3.0-or-later (matches the `cloud-itonami-iso3166-*` /
 `-municipality-*` / `-assoc-*` / `-lei-*` convention). Policy text
 itself remains API's; this repo stores only citation metadata
 (id/title/url/dates), not full text.
+
+## Verification
+
+```sh
+clojure -M:test
+clojure -M:lint
+```
+
+The JVM is a compiler/test host only. Qualification executes reference
+semantics, restricted JavaScript, and instantiated typed WebAssembly.
